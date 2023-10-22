@@ -6,7 +6,7 @@ import { ContractFunctionExecutionError } from 'viem';
 import { useEffect, useState } from 'react';
 import { readContract, prepareWriteContract, writeContract } from '@wagmi/core'
 import { useAccount } from 'wagmi';
-import { Input, RadioGroup, Stack, Radio, InputGroup, InputRightAddon, Checkbox, Button, CardHeader, Card, CardBody, Heading } from '@chakra-ui/react';
+import { Input, RadioGroup, Stack, Radio, InputGroup, InputRightAddon, Checkbox, Button, CardHeader, Card, CardBody, Heading, Center } from '@chakra-ui/react';
 import { FaRegClipboard } from "react-icons/fa6";
 
 import Deployer from '../abis/Deployer.json';
@@ -14,8 +14,8 @@ import ERC721 from '../abis/ERC721.json';
 import clipboardCopy from 'clipboard-copy';
 
 
-
-const deployerAddress = '0x9a7B0a7d8f032e1f2F41a391bBeF97872C96F3f5';
+const deployerAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+//const deployerAddress = '0x9a7B0a7d8f032e1f2F41a391bBeF97872C96F3f5';
 
 const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   const handleCopyClick = async () => {
@@ -42,7 +42,7 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     setIsClient(true);
-    
+
   }, []);
 
 
@@ -86,24 +86,23 @@ const Home: NextPage = () => {
 
 
     var ipfsUrl: any = '';
-    if (inputs[6] !== '') {
-      ipfsUrl = inputs[6];
-    } else {
+
       readContract({
         address: srcAddress as '0x${string}',
         abi: ERC721.abi,
         functionName: 'tokenURI',
-        args: [],
+        args: [0],
         account: address,
       }).then((data) => {
         console.log(data);
         ipfsUrl = data;
-        ipfsUrl=ipfsUrl.toString();
-        ipfsUrl=ipfsUrl.match(/ipfs:\/\/[^/]+/);
+        ipfsUrl = ipfsUrl.toString();
+        ipfsUrl = ipfsUrl.match(/ipfs:\/\/[^/]+/);
+        
       }).catch((error) => {
         console.log(error);
       });
-    }
+    
 
     var whitelistByTokenId = checkboxes[0];
     var whitelistByWalletAddress = checkboxes[1];
@@ -112,7 +111,6 @@ const Home: NextPage = () => {
       address: deployerAddress as '0x${string}',
       abi: Deployer.abi,
       functionName: 'deployContract',
-
       args: [
         collectionOwner,
         srcAddress,
@@ -123,7 +121,9 @@ const Home: NextPage = () => {
       ],
       account: address,
     }).then((data) => {
+      console.log(data);
       writeContract(data).then(() => {
+        console.log(data);
         setTxData([true, data.result, collectionOwner]);
       });
     }).catch((error) => {
@@ -168,11 +168,20 @@ const Home: NextPage = () => {
                   <CardBody>
                     <p>Address of new contract: {txData[1]} <CopyButton text={txData[1]} /></p>
                     <p>Collection owner: {txData[2]} <CopyButton text={txData[2]} /></p>
+                    < Button colorScheme='red' onClick={
+                  () => setTxData([false, '', ''])
+                  }>
+                    Back
+                    </Button>
                   </CardBody>
                 </Card>
+                
               </div>
             ) : (
               <>
+                <Center>
+                  <Button colorScheme='blue' onClick={() => window.location.href = '/user'}>Mint and bye bye</Button>
+                </Center>
                 <div>
                   Source of Collection Smart Contract Address
                   <Input size='sm' type="text" backgroundColor='gray.100' placeholder="To" id="getDeployerData__SourceAddress" />
@@ -208,7 +217,7 @@ const Home: NextPage = () => {
                       <InputGroup size='sm'>
                         <Input size='sm' type="number" placeholder="" backgroundColor='gray.100' id="getDeployerData__CreatorFees" />
                         <InputRightAddon>
-                        %
+                          %
                         </InputRightAddon>
                       </InputGroup>
                     </div>
@@ -242,7 +251,7 @@ const Home: NextPage = () => {
                       <InputGroup size='sm'>
                         <Input size='sm' type="number" placeholder="" backgroundColor='gray.100' id="getDeployerData__CostPerMint" />
                         <InputRightAddon>
-                        ETH
+                          ETH
                         </InputRightAddon>
                       </InputGroup>
                     </div>
@@ -270,11 +279,6 @@ const Home: NextPage = () => {
 
       </main>
 
-      <footer className={styles.footer}>
-        <a href="https://rainbow.me" rel="noopener noreferrer" target="_blank">
-          Made with ❤️ by your frens at 🌈
-        </a>
-      </footer>
     </div >
 
   );

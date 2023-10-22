@@ -15,7 +15,6 @@ contract GmFam is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, Ow
     address oldContract;
     string public baseURI;
     uint public costPerMint;
-
     constructor(
         address initialOwner, 
     address _oldContract, 
@@ -26,7 +25,9 @@ contract GmFam is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, Ow
     ) ERC721(nameOfToken,symbolOfToken) Ownable(initialOwner) {
         oldContract = _oldContract;
         baseURI = _baseURI;
-        costPerMint = _costPerMint;
+        //convetir _costPerMint en ether
+        uint priceInEth = _costPerMint * 10 ** 15;
+        costPerMint = priceInEth;
     }
 
 
@@ -34,14 +35,11 @@ contract GmFam is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, Ow
         who.transfer(address(this).balance);
     }
 
-    function safeMint(uint256 tokenId) public payable {
-        if ( msg.value != costPerMint) {
-            revert YouMUSTPayForMint();
-        }
+    function safeMint(uint256 tokenId) public  {
+    
         if (msg.sender != ERC721(oldContract).ownerOf(tokenId)) {
             revert YouAreNotTheOwner();
         }
-        payable(address(this)).transfer(msg.value);
         
         ERC721(oldContract).transferFrom(msg.sender, address(this), tokenId);
         address auxAddress = msg.sender;
@@ -65,7 +63,10 @@ contract GmFam is ERC721, ERC721Enumerable, ERC721URIStorage, ERC721Burnable, Ow
     function changeCost(uint newCost) public onlyOwner {
         costPerMint = newCost;
     }
-
+    
+    function readCost() public view returns (uint) {
+        return costPerMint;
+    }
     // The following functions are overrides required by Solidity.
 
     function _update(address to, uint256 tokenId, address auth)
