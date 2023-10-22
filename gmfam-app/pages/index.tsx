@@ -14,8 +14,7 @@ import ERC721 from '../abis/ERC721.json';
 import clipboardCopy from 'clipboard-copy';
 
 
-const deployerAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-//const deployerAddress = '0x9a7B0a7d8f032e1f2F41a391bBeF97872C96F3f5';
+const deployerAddress = '0x9a7B0a7d8f032e1f2F41a391bBeF97872C96F3f5';
 
 const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   const handleCopyClick = async () => {
