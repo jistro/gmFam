@@ -232,7 +232,7 @@ const Home: NextPage = () => {
                             <>
 
                                 <div>
-                                    Smart Contract Address
+                                    New gmFam! Deployed Smart Contract
                                     <Input size='sm' type="text" backgroundColor='gray.100' placeholder="To" id="SourceAddress" />
                                 </div>
                                 <div className={styles.container__twoSideByside}>
@@ -249,7 +249,7 @@ const Home: NextPage = () => {
                                             <Input size='sm' type="number" placeholder="" backgroundColor='gray.100' id="mint_id" />
                                         </div>
                                         <div>
-                                            <p>Old contract address</p>
+                                            <p>Original contract address</p>
                                             <Input size='sm' type="text" placeholder="" backgroundColor='gray.100' id="mint_old_contract_address" />
                                         </div>
                                         <div
@@ -260,7 +260,7 @@ const Home: NextPage = () => {
                                             <Button colorScheme='blue'
                                                 onClick={givePermission}
                                             >
-                                                Give me your nft fren
+                                                Give me your nft permission fren
                                             </Button>
                                             ) : (
                                                 <Button colorScheme='blue'
