@@ -130,7 +130,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>gmFam!!</title>
+        <title>gm Fam!</title>
         <meta
           content="gmFam"
           name="gmFam"
@@ -228,14 +228,12 @@ const Home: NextPage = () => {
                         <Checkbox
                           colorScheme='green'
                           id='getDeployerData__WitelistByTokenId'
-                          defaultChecked
                         >
                           By original token ID (Number)
                         </Checkbox>
                         <Checkbox
                           colorScheme='green'
                           id='getDeployerData__WitelistByWalletAddress'
-                          defaultChecked
                         >
                           By wallet address
                         </Checkbox>
