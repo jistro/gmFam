@@ -138,7 +138,7 @@ const Home: NextPage = () => {
         <link href="/favicon.ico" rel="icon" />
       </Head>
       <header>
-        <img src="/logo.png" alt="RainbowKit Logo" height={100} width={100} />
+        <img src="/pink-logo.png" alt="RainbowKit Logo" height={100} width={100} />
       </header>
       <main className={styles.main}>
         <ConnectButton />
