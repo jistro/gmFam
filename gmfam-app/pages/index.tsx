@@ -85,51 +85,46 @@ const Home: NextPage = () => {
 
 
     var ipfsUrl: any = '';
-
-      readContract({
-        address: srcAddress as '0x${string}',
-        abi: ERC721.abi,
-        functionName: 'tokenURI',
-        args: [0],
-        account: address,
-      }).then((data) => {
-        console.log(data);
-        ipfsUrl = data;
-        ipfsUrl = ipfsUrl.toString();
-        ipfsUrl = ipfsUrl.match(/ipfs:\/\/[^/]+/);
-        console.log(ipfsUrl);
-        
-      }).catch((error) => {
-        console.log(error);
-      });
-    
-    console.log(ipfsUrl);
-    var whitelistByTokenId = checkboxes[0];
-    var whitelistByWalletAddress = checkboxes[1];
-
-    prepareWriteContract({
-      address: deployerAddress as '0x${string}',
-      abi: Deployer.abi,
-      functionName: 'deployContract',
-      args: [
-        collectionOwner,
-        srcAddress,
-        collectionName,
-        collectionTokenName,
-        ipfsUrl,
-        costPerMint
-      ],
+    readContract({
+      address: srcAddress as '0x${string}',
+      abi: ERC721.abi,
+      functionName: 'tokenURI',
+      args: [0],
       account: address,
     }).then((data) => {
       console.log(data);
-      writeContract(data).then(() => {
+      ipfsUrl = data;
+      ipfsUrl = ipfsUrl.toString();
+      ipfsUrl = ipfsUrl.match(/ipfs:\/\/[^/]+/)![0];
+
+      var whitelistByTokenId = checkboxes[0];
+      var whitelistByWalletAddress = checkboxes[1];
+
+      prepareWriteContract({
+        address: deployerAddress as '0x${string}',
+        abi: Deployer.abi,
+        functionName: 'deployContract',
+        args: [
+          collectionOwner,
+          srcAddress,
+          collectionName,
+          collectionTokenName,
+          ipfsUrl,
+          costPerMint
+        ],
+        account: address,
+      }).then((data) => {
         console.log(data);
-        setTxData([true, data.result, collectionOwner]);
+        writeContract(data).then(() => {
+          console.log(data);
+          setTxData([true, data.result, collectionOwner]);
+        });
+      }).catch((error) => {
+        console.log(error);
       });
     }).catch((error) => {
       console.log(error);
     });
-
   }
 
   return (
