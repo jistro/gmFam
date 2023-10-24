@@ -197,10 +197,10 @@ const Home: NextPage = () => {
                     content="gmFam"
                     name="gmFam"
                 />
-                <link href="/favicon.png" rel="icon" />
+                <link href="/favicon.ico" rel="icon" />
             </Head>
             <header>
-                <img src="/pink-logo.png" alt="RainbowKit Logo" height={100} width={100} />
+                <img src="/logo.png" alt="RainbowKit Logo" height={100} width={100} />
             </header>
             <main className={styles.main}>
                 <ConnectButton />
@@ -232,7 +232,7 @@ const Home: NextPage = () => {
                             <>
 
                                 <div>
-                                    New gmFam! Deployed Smart Contract
+                                    Smart Contract Address
                                     <Input size='sm' type="text" backgroundColor='gray.100' placeholder="To" id="SourceAddress" />
                                 </div>
                                 <div className={styles.container__twoSideByside}>
@@ -249,7 +249,7 @@ const Home: NextPage = () => {
                                             <Input size='sm' type="number" placeholder="" backgroundColor='gray.100' id="mint_id" />
                                         </div>
                                         <div>
-                                            <p>Original contract address</p>
+                                            <p>Old contract address</p>
                                             <Input size='sm' type="text" placeholder="" backgroundColor='gray.100' id="mint_old_contract_address" />
                                         </div>
                                         <div
@@ -260,7 +260,7 @@ const Home: NextPage = () => {
                                             <Button colorScheme='blue'
                                                 onClick={givePermission}
                                             >
-                                                Give me your nft permission fren
+                                                Give me your nft fren
                                             </Button>
                                             ) : (
                                                 <Button colorScheme='blue'

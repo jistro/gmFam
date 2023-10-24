@@ -6,8 +6,24 @@ import { ContractFunctionExecutionError } from 'viem';
 import { useEffect, useState } from 'react';
 import { readContract, prepareWriteContract, writeContract } from '@wagmi/core'
 import { useAccount } from 'wagmi';
-import { Input, RadioGroup, Stack, Radio, InputGroup, InputRightAddon, Checkbox, Button, CardHeader, Card, CardBody, Heading, Center } from '@chakra-ui/react';
-import { FaRegClipboard } from "react-icons/fa6";
+import {
+  Input,
+  RadioGroup,
+  Stack,
+  Radio,
+  InputGroup,
+  InputRightAddon,
+  Checkbox,
+  Button,
+  Card,
+  CardBody,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  IconButton,
+} from '@chakra-ui/react';
+import { FaRegClipboard, FaBars } from "react-icons/fa6";
 
 import Deployer from '../abis/Deployer.json';
 import ERC721 from '../abis/ERC721.json';
@@ -20,9 +36,8 @@ const CopyButton: React.FC<{ text: string }> = ({ text }) => {
   const handleCopyClick = async () => {
     try {
       await clipboardCopy(text);
-      alert('Copiado al portapapeles');
     } catch (error) {
-      console.error('Error al copiar el texto:', error);
+      console.error('Error to copy the text:', error);
     }
   };
   return (
@@ -36,7 +51,6 @@ const Home: NextPage = () => {
   const { address, isConnected } = useAccount();
   const [isClient, setIsClient] = useState(false);
   const [value, setValue] = useState('1');
-  const [uriAux, setUriAux] = useState<any>('');
   const [txData, setTxData] = useState<any>([false, '', '']);
 
   useEffect(() => {
@@ -46,6 +60,7 @@ const Home: NextPage = () => {
 
 
   const getDeployerData = () => {
+
     const inputIds = [
       'getDeployerData__SourceAddress',
       'getDeployerData__CollectionName',
@@ -89,7 +104,7 @@ const Home: NextPage = () => {
       address: srcAddress as '0x${string}',
       abi: ERC721.abi,
       functionName: 'tokenURI',
-      args: [1],
+      args: [0],
       account: address,
     }).then((data) => {
       console.log(data);
@@ -97,6 +112,7 @@ const Home: NextPage = () => {
       ipfsUrl = ipfsUrl.toString();
       ipfsUrl = ipfsUrl.match(/ipfs:\/\/[^/]+/)![0];
       ipfsUrl = ipfsUrl + '/';
+
       var whitelistByTokenId = checkboxes[0];
       var whitelistByWalletAddress = checkboxes[1];
 
@@ -125,23 +141,48 @@ const Home: NextPage = () => {
     }).catch((error) => {
       console.log(error);
     });
+
   }
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>gm Fam!</title>
+        <title>gmFam!!</title>
         <meta
-          content="gm Fam"
-          name="gm Fam"
+          content="gmFam"
+          name="gmFam"
         />
         <link href="/favicon.png" rel="icon" />
       </Head>
       <header>
         <img src="/pink-logo.png" alt="RainbowKit Logo" height={100} width={100} />
+        <ConnectButton />
+        <Menu>
+          <MenuButton
+            as={IconButton}
+            aria-label='Options'
+            icon={<FaBars />}
+            colorScheme='green'
+          />
+          <MenuList >
+          <MenuItem 
+          backgroundColor={'gray.600'}
+          color={'white'}
+          >
+              Main page
+            </MenuItem>
+            <MenuItem onClick={() => window.location.href = '/mint'}>
+              Mint
+            </MenuItem>
+            <MenuItem onClick={() => window.location.href = '/goBack'}>
+              Go back to the original collection
+            </MenuItem>
+
+          </MenuList>
+        </Menu>
       </header>
       <main className={styles.main}>
-        <ConnectButton />
+
         {isClient && (
           <div
             style={{
@@ -150,33 +191,42 @@ const Home: NextPage = () => {
           >
             {txData[0] ? (
               <div>
-                <h1
+                <center
                   style={{
-                    color: '#083f99',
-                    fontSize: '30px',
-                    fontWeight: 'bold',
+                    paddingBottom: '20px',
                   }}
                 >
-                  Congratulations fren!
-                </h1>
-                <Card variant='filled'>
-                  <CardBody>
-                    <p>Address of new contract: {txData[1]} <CopyButton text={txData[1]} /></p>
-                    <p>Collection owner: {txData[2]} <CopyButton text={txData[2]} /></p>
+                  <img
+                    src="/mango-congrats.svg"
+                    width={200} />
+                  <h1
+                    style={{
+                      color: '#083f99',
+                      fontSize: '30px',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Congratulations fren!
+                  </h1>
+                </center>
+                <Card >
+                  <CardBody backgroundColor={'#98dcd7'}>
+                    <p>Address of new contract:</p>
+                    <p>{txData[1]} <CopyButton text={txData[1]} /></p>
+                    <p>Collection owner:</p>
+                    <p>{txData[2]} <CopyButton text={txData[2]} /></p>
+                    <br />
                     < Button colorScheme='red' onClick={
-                  () => setTxData([false, '', ''])
-                  }>
-                    Back
+                      () => setTxData([false, '', ''])
+                    }>
+                      Back
                     </Button>
                   </CardBody>
                 </Card>
-                
+
               </div>
             ) : (
               <>
-                <Center>
-                  <Button colorScheme='blue' onClick={() => window.location.href = '/user'}>Mint / bye bye</Button>
-                </Center>
                 <div>
                   Source of Collection Smart Contract Address
                   <Input size='sm' type="text" backgroundColor='gray.100' placeholder="To" id="getDeployerData__SourceAddress" />
