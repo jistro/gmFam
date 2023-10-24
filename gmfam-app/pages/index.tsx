@@ -89,14 +89,14 @@ const Home: NextPage = () => {
       address: srcAddress as '0x${string}',
       abi: ERC721.abi,
       functionName: 'tokenURI',
-      args: [0],
+      args: [1],
       account: address,
     }).then((data) => {
       console.log(data);
       ipfsUrl = data;
       ipfsUrl = ipfsUrl.toString();
       ipfsUrl = ipfsUrl.match(/ipfs:\/\/[^/]+/)![0];
-
+      ipfsUrl = ipfsUrl + '/';
       var whitelistByTokenId = checkboxes[0];
       var whitelistByWalletAddress = checkboxes[1];
 
@@ -132,8 +132,8 @@ const Home: NextPage = () => {
       <Head>
         <title>gm Fam!</title>
         <meta
-          content="gmFam"
-          name="gmFam"
+          content="gm Fam"
+          name="gm Fam"
         />
         <link href="/favicon.ico" rel="icon" />
       </Head>
