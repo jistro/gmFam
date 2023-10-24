@@ -175,7 +175,7 @@ const Home: NextPage = () => {
             ) : (
               <>
                 <Center>
-                  <Button colorScheme='blue' onClick={() => window.location.href = '/user'}>Mint and bye bye</Button>
+                  <Button colorScheme='blue' onClick={() => window.location.href = '/user'}>Mint / bye bye</Button>
                 </Center>
                 <div>
                   Source of Collection Smart Contract Address
