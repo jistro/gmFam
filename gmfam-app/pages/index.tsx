@@ -135,7 +135,7 @@ const Home: NextPage = () => {
           content="gm Fam"
           name="gm Fam"
         />
-        <link href="/favicon.ico" rel="icon" />
+        <link href="/favicon.png" rel="icon" />
       </Head>
       <header>
         <img src="/pink-logo.png" alt="RainbowKit Logo" height={100} width={100} />
