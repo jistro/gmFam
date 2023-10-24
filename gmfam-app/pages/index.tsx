@@ -97,12 +97,13 @@ const Home: NextPage = () => {
         ipfsUrl = data;
         ipfsUrl = ipfsUrl.toString();
         ipfsUrl = ipfsUrl.match(/ipfs:\/\/[^/]+/);
+        console.log(ipfsUrl);
         
       }).catch((error) => {
         console.log(error);
       });
     
-
+    console.log(ipfsUrl);
     var whitelistByTokenId = checkboxes[0];
     var whitelistByWalletAddress = checkboxes[1];
 
