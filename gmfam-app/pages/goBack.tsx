@@ -59,7 +59,6 @@ const Home: NextPage = () => {
             args: [
                 tokenId
             ],
-            account: address,
         }).then((data) => {
             writeContract(data).then(() => {
                 alert('Burned');

@@ -35,9 +35,9 @@ const Home: NextPage = () => {
 
     const givePermission = () => {
         const inputIds = [
-            'SourceAddress',
+            'gmFam_new_addresss',
             'mint_id',
-            'mint_old_contract_address',
+            'original_addresss',
         ];
 
         // pasar por todos
@@ -55,6 +55,8 @@ const Home: NextPage = () => {
         var srcAddress = inputs[0];
         var tokenId = inputs[1];
         var oldContractAddress = inputs[2];
+
+        
 
         prepareWriteContract({
             address: oldContractAddress as '0x${string}',
@@ -78,9 +80,9 @@ const Home: NextPage = () => {
 
     const safeMint = () => {
         const inputIds = [
-            'SourceAddress',
+            'gmFam_new_addresss',
             'mint_id',
-            'mint_old_contract_address',
+            'original_addresss',
         ];
 
         // pasar por todos
@@ -95,43 +97,44 @@ const Home: NextPage = () => {
             return;
         }
 
-        var srcAddress = inputs[0];
+        var mintAddress = inputs[0];
         var tokenId = inputs[1];
-        var oldContractAddress = inputs[2];
-        console.log(srcAddress);
+
+
+        console.log(mintAddress);
         //leer variable costPerMint
         var costPerMint = 0;
         readContract({
-            address: srcAddress as '0x${string}',
+            address: mintAddress as '0x${string}',
             abi: GmFam.abi,
             args: [],
             functionName: 'readCost',
-            account: address,
         }).then((data) => {
             console.log(data);
             costPerMint = data as number;
+        }).then(() => {
+            prepareWriteContract({
+                address: mintAddress as '0x${string}',
+                abi: GmFam.abi,
+                functionName: 'safeMint',
+                args: [tokenId],
+                account: address,
+                value: BigInt(costPerMint),
+
+            }).then((data) => {
+                writeContract(data).then(() => {
+                    alert('Minted');
+                });
+            }).catch((error) => {
+                console.log(error);
+            });
         }).catch((error) => {
             console.log(error);
         });
 
         // variable float priceEth
 
-        prepareWriteContract({
-            address: srcAddress as '0x${string}',
-            abi: GmFam.abi,
-            functionName: 'safeMint',
-            args: [
-                tokenId
-            ],
 
-            account: address,
-        }).then((data) => {
-            writeContract(data).then(() => {
-                alert('Minted');
-            });
-        }).catch((error) => {
-            console.log(error);
-        });
     }
 
 
@@ -200,7 +203,7 @@ const Home: NextPage = () => {
                             </div>
                             <div>
                                 gmFam! Deployed Smart Contract
-                                <Input size='sm' type="text" backgroundColor='gray.100' placeholder="0x..." id="SourceAddress" />
+                                <Input size='sm' type="text" backgroundColor='gray.100' placeholder="0x..." id="gmFam_new_addresss" />
                             </div>
                             <div>
                                 ID
@@ -208,25 +211,23 @@ const Home: NextPage = () => {
                             </div>
                             <div>
                                 <p>Original contract address</p>
-                                <Input size='sm' type="text" placeholder="0x..." backgroundColor='gray.100' id="mint_old_contract_address" />
+                                <Input size='sm' type="text" placeholder="0x..." backgroundColor='gray.100' id="original_addresss" />
                             </div>
-                            <div
-                                style={{
-                                    paddingTop: '1rem',
-                                }}>
-                                {!permissionGranted ? (
+                            <div className={styles.container__twoSideByside}>
+                                <div>
                                     <Button colorScheme='blue'
                                         onClick={givePermission}
                                     >
                                         Give me your permission fren
                                     </Button>
-                                ) : (
+                                </div>
+                                <div>
                                     <Button colorScheme='blue'
                                         onClick={safeMint}
                                     >
                                         Mint
                                     </Button>
-                                )}
+                                </div>
                             </div>
 
                         </div>
