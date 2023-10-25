@@ -137,7 +137,7 @@ const Home: NextPage = () => {
     var hasId = false;
     var suffix = '';
     const tokenURIMethods = ['tokenURI', 'uri']; // Acá podemos agregar otros métodos
-    const tokenIdsToTry = [0, 1, 2, 11, 12, 111, 112, 1001, 1002]; // Buscamos 2 tokenID pero sino sigue procurando, ya que a veces no están minteados algunos de numero bajo
+    const tokenIdsToTry = [1, 2, 11, 12, 111, 112, 1001, 1002]; // Buscamos 2 tokenID pero sino sigue procurando, ya que a veces no están minteados algunos de numero bajo
     for (const method of tokenURIMethods) {
       
       for (let i = 0; i < tokenIdsToTry.length; i += 2) {
