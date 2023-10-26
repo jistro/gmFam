@@ -232,7 +232,7 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>gmFam!!</title>
+        <title>gm Fam!</title>
         <meta
           content="gmFam"
           name="gmFam"
@@ -260,7 +260,7 @@ const Home: NextPage = () => {
           </p>
           <br/>
           <p>
-            Made with ❤️ by <a href="https://twitter.com/andrealbiac">@andrealbiac</a>, <a href="https://twitter.com/jistro">@jistro</a> and <a href="https://twitter.com/ariutokintumi">@ariutokintumi</a>
+            Made with ❤️ by <a href="https://twitter.com/andrealbiac" target="_blank">@andrealbiac</a>, <a href="https://twitter.com/jistro" target="_blank">@jistro</a> and <a href="https://twitter.com/ariutokintumi" target="_blank">@ariutokintumi</a>
           </p>
         </div>
       </div>
