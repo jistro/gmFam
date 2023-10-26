@@ -253,7 +253,7 @@ const Home: NextPage = () => {
             This is an alpha version of the gm Fam! dApp.
           </h1>
           <p>
-            If you wamt to use the last and up-to-date stable version please go to:
+            If you want to use the last and up-to-date stable version please go to:
           </p>
           <p>
           <a href="https://gm-fam.vercel.app/">gm-fam.vercel.app</a>
