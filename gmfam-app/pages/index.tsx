@@ -31,7 +31,6 @@ import { erc721ABI } from '@wagmi/core'
 
 import ERC721 from '../abis/ERC721.json';
 import clipboardCopy from 'clipboard-copy';
-import { m } from 'framer-motion';
 
 
 const deployerAddress = '0x9Ee492011c5C3Ac93d4CbB2B6877f23023b49D5D';
@@ -73,8 +72,9 @@ const CopyButton: React.FC<{ text: string }> = ({ text }) => {
 const Home: NextPage = () => {
   const { address, isConnected } = useAccount();
   const [isClient, setIsClient] = useState(false);
-  const [value, setValue] = useState('1');
+  const [value, setValue] = useState('3');
   const [txData, setTxData] = useState<any>([false, '', '']);
+  const [closeTopContainer, setCloseTopContainer] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
@@ -82,7 +82,7 @@ const Home: NextPage = () => {
   }, []);
 
 
-  const getDeployerData = async (): Promise<void> =>{
+  const getDeployerData = async (): Promise<void> => {
 
     const inputIds = [
       'getDeployerData__SourceAddress',
@@ -122,7 +122,7 @@ const Home: NextPage = () => {
     var creatorFees = inputs[4];
     var costPerMint = inputs[5];
     var maxTokens = inputs[6];
-    
+
     if (parseFloat(creatorFees) >= 100) {
       alert('Creator fees must be less than 100%');
       return;
@@ -139,18 +139,18 @@ const Home: NextPage = () => {
     const tokenURIMethods = ['tokenURI', 'uri']; // Acá podemos agregar otros métodos
     const tokenIdsToTry = [0, 1, 2, 11, 12, 111, 112, 1001, 1002]; // Buscamos 2 tokenID pero sino sigue procurando, ya que a veces no están minteados algunos de numero bajo
     for (const method of tokenURIMethods) {
-      
+
       for (let i = 0; i < tokenIdsToTry.length; i += 2) {
         console.log('Trying method', method);
         console.log('Trying tokenID', tokenIdsToTry[i], 'and', tokenIdsToTry[i + 1]);
-        const tokenId1 = await readContract ({
+        const tokenId1 = await readContract({
           address: srcAddress as '0x${string}',
           abi: erc721ABI,
           functionName: 'tokenURI',
           args: [BigInt(tokenIdsToTry[i])],
           account: address,
         });
-        const tokenId2 = await readContract ({
+        const tokenId2 = await readContract({
           address: srcAddress as '0x${string}',
           abi: erc721ABI,
           functionName: 'tokenURI',
@@ -162,7 +162,7 @@ const Home: NextPage = () => {
 
         const urlMatch1 = tokenId1.match(/^(.*:\/\/.*)(\d+)(.*)$/);
         const urlMatch2 = tokenId2.match(/^(.*:\/\/.*)(\d+)(.*)$/);
-        
+
         console.log('urlMatch1', urlMatch1);
         console.log('urlMatch1', urlMatch1?.[1]);
         console.log('urlMatch2', urlMatch2?.[1]);
@@ -185,8 +185,8 @@ const Home: NextPage = () => {
             console.log(prefix, suffix, hasId);
           } else {
             if (urlMatch1?.[2] === '') {
-            console.log(`The token baseURI is ${prefix}`);
-            console.log(prefix, suffix, hasId);
+              console.log(`The token baseURI is ${prefix}`);
+              console.log(prefix, suffix, hasId);
             } else {
               console.log(`The token baseURI is ${prefix} only has the tokenID ${urlMatch1?.[2]}`);
               hasId = true;
@@ -197,7 +197,7 @@ const Home: NextPage = () => {
         }
       }
       if (prefix !== '') {
-        
+
         prepareWriteContract({
           address: deployerAddress as '0x${string}',
           abi: Deployer.abi,
@@ -227,11 +227,6 @@ const Home: NextPage = () => {
         break;
       }
     }
-    
-
-
-      
-
   }
 
   return (
@@ -244,6 +239,32 @@ const Home: NextPage = () => {
         />
         <link href="/favicon.png" rel="icon" />
       </Head>
+      { !closeTopContainer && (
+      <div className={styles.topContainer}>
+        <div className={styles.topContainer__xContainer}>
+          <Button
+            className={styles.topContainer__xContainer__xButton}
+            colorScheme='null'
+            onClick={() => setCloseTopContainer(true)}
+          >x</Button>
+        </div>
+        <div className={styles.topContainer__textContainer}>
+          <h1>
+            This is a alpha version of the gm Fam! app.
+          </h1>
+          <p>
+            If you wamt to use the stable version go to:
+          </p>
+          <p>
+          <a href="https://gm-fam-stable.vercel.app/">gm-fam-stable.vercel.app</a>
+          </p>
+          <br/>
+          <p>
+            Made with ❤️ by <a href="https://twitter.com/andrealbiac">@andrealbiac</a>, <a href="https://twitter.com/jistro">@jistro</a> and <a href="https://twitter.com/ariutokintumi">@ariutokintumi</a>
+          </p>
+        </div>
+      </div>
+      )}
       <header>
         <img src="/pink-logo.png" alt="RainbowKit Logo" height={100} width={100} />
         <ConnectButton />
@@ -255,10 +276,10 @@ const Home: NextPage = () => {
             colorScheme='green'
           />
           <MenuList >
-          <MenuItem 
-          backgroundColor={'gray.600'}
-          color={'white'}
-          >
+            <MenuItem
+              backgroundColor={'gray.600'}
+              color={'white'}
+            >
               Main page
             </MenuItem>
             <MenuItem onClick={() => window.location.href = '/mint'}>
@@ -317,13 +338,24 @@ const Home: NextPage = () => {
               </div>
             ) : (
               <>
-                <div>
+                <div
+                  style={{
+                    paddingBottom: '20px',
+                  }}
+                >
                   Source of Collection Smart Contract Address
                   <Input size='sm' type="text" backgroundColor='gray.100' placeholder="To" id="getDeployerData__SourceAddress" />
                 </div>
-                <div>
-                  Metadata
-                  <RadioGroup onChange={setValue} value={value} >
+                <div
+                className={styles.unavailableBox}
+                onChange={(e) => {
+                  alert('This feature is in development');
+                  setValue('3');
+                }}
+                >
+                  Metadata (in development)
+                  <RadioGroup onChange={setValue} value={value} 
+                  >
                     <Stack>
                       <Radio value='1' backgroundColor='gray.100' colorScheme='green'>
                         Use the original one
@@ -362,18 +394,24 @@ const Home: NextPage = () => {
                       New Token Name
                       <Input size='sm' type="text" placeholder="" backgroundColor='gray.100' id="getDeployerData__CollectionTokenName" />
                     </div>
-                    <div>
-                      Whitelist (optional)
-                      <Stack spacing={1}>
+                    <div
+                      className={styles.unavailableBox}
+                      onChange={(e) => {
+                        alert('This feature is in development');
+                        setValue('3');
+                      }}
+                    >
+                      Whitelist (In development)
+                      <Stack spacing={0}>
                         <Checkbox
                           colorScheme='green'
-                          id='getDeployerData__WitelistByTokenId'
+                          id=''
                         >
                           By original token ID (Number)
                         </Checkbox>
                         <Checkbox
                           colorScheme='green'
-                          id='getDeployerData__WitelistByWalletAddress'
+                          id=''
                         >
                           By wallet address
                         </Checkbox>
