@@ -250,13 +250,13 @@ const Home: NextPage = () => {
         </div>
         <div className={styles.topContainer__textContainer}>
           <h1>
-            This is a alpha version of the gm Fam! app.
+            This is an alpha version of the gm Fam! dApp.
           </h1>
           <p>
-            If you wamt to use the stable version go to:
+            If you wamt to use the last and up-to-date stable version please go to:
           </p>
           <p>
-          <a href="https://gm-fam-stable.vercel.app/">gm-fam-stable.vercel.app</a>
+          <a href="https://gm-fam.vercel.app/">gm-fam.vercel.app</a>
           </p>
           <br/>
           <p>
