@@ -142,7 +142,7 @@ const Home: NextPage = () => {
     return (
         <div className={styles.container}>
             <Head>
-                <title>Mint in gm Fam!</title>
+                <title>Wrap & Mint in gm Fam!</title>
                 <meta
                     content="gm Fam! -- mint your own NFTs"
                     name="gm Fam! --mint your own NFTs"
@@ -189,16 +189,16 @@ const Home: NextPage = () => {
 
                     <MenuList >
                         <MenuItem onClick={() => window.location.href = '/'}>
-                            Main page
+                            Create gm Fam!
                         </MenuItem>
                         <MenuItem
                             backgroundColor={'gray.600'}
                             color={'white'}
                         >
-                            Mint
+                            Wrap & Mint NFT
                         </MenuItem>
                         <MenuItem onClick={() => window.location.href = '/goBack'}>
-                            Go back to the original collection
+                            Go back to the Original Collection
                         </MenuItem>
 
                     </MenuList>
@@ -225,18 +225,20 @@ const Home: NextPage = () => {
                                         fontSize: '40px',
                                         fontWeight: 'bold',
                                     }}
-                                >Mint</h1>
+                                >
+                                    Wrap &amp; Mint
+                                </h1>
                             </div>
                             <div>
-                                gmFam! Deployed Smart Contract
+                                gm Fam! Deployed Smart Contract address (New one)
                                 <Input size='sm' type="text" backgroundColor='gray.100' placeholder="0x..." id="gmFam_new_addresss" />
                             </div>
                             <div>
-                                ID
+                                Token ID (NFT)
                                 <Input size='sm' type="number" placeholder="0" backgroundColor='gray.100' id="mint_id" />
                             </div>
                             <div>
-                                <p>Original contract address</p>
+                                <p>Original Smart Contract address (Old one)</p>
                                 <Input size='sm' type="text" placeholder="0x..." backgroundColor='gray.100' id="original_addresss" />
                             </div>
                             <div className={styles.container__twoSideByside}>
@@ -248,7 +250,7 @@ const Home: NextPage = () => {
                                     </Button>
                                 </div>
                                 <div>
-                                    <Button colorScheme='blue'
+                                    <Button colorScheme='pink'
                                         onClick={safeMint}
                                     >
                                         Mint

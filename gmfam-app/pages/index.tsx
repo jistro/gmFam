@@ -72,7 +72,7 @@ const CopyButton: React.FC<{ text: string }> = ({ text }) => {
 const Home: NextPage = () => {
   const { address, isConnected } = useAccount();
   const [isClient, setIsClient] = useState(false);
-  const [value, setValue] = useState('3');
+  const [value, setValue] = useState('1');
   const [txData, setTxData] = useState<any>([false, '', '']);
   const [closeTopContainer, setCloseTopContainer] = useState(false);
 
@@ -232,38 +232,38 @@ const Home: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>gm Fam!</title>
+        <title>Create gm Fam!</title>
         <meta
-          content="gmFam"
-          name="gmFam"
+          content="Create gm Fam!"
+          name="Create gm Fam!"
         />
         <link href="/favicon.png" rel="icon" />
       </Head>
-      { !closeTopContainer && (
-      <div className={styles.topContainer}>
-        <div className={styles.topContainer__xContainer}>
-          <Button
-            className={styles.topContainer__xContainer__xButton}
-            colorScheme='null'
-            onClick={() => setCloseTopContainer(true)}
-          >x</Button>
+      {!closeTopContainer && (
+        <div className={styles.topContainer}>
+          <div className={styles.topContainer__xContainer}>
+            <Button
+              className={styles.topContainer__xContainer__xButton}
+              colorScheme='null'
+              onClick={() => setCloseTopContainer(true)}
+            >x</Button>
+          </div>
+          <div className={styles.topContainer__textContainer}>
+            <h1>
+              This is an alpha version of the gm Fam! dApp.
+            </h1>
+            <p>
+              If you want to use the last and up-to-date stable version please go to:
+            </p>
+            <p>
+              <a href="https://gm-fam.vercel.app/">gm-fam.vercel.app</a>
+            </p>
+            <br />
+            <p>
+              Made with ❤️ by <a href="https://twitter.com/andrealbiac" target="_blank">@andrealbiac</a>, <a href="https://twitter.com/jistro" target="_blank">@jistro</a> and <a href="https://twitter.com/ariutokintumi" target="_blank">@ariutokintumi</a>
+            </p>
+          </div>
         </div>
-        <div className={styles.topContainer__textContainer}>
-          <h1>
-            This is an alpha version of the gm Fam! dApp.
-          </h1>
-          <p>
-            If you want to use the last and up-to-date stable version please go to:
-          </p>
-          <p>
-          <a href="https://gm-fam.vercel.app/">gm-fam.vercel.app</a>
-          </p>
-          <br/>
-          <p>
-            Made with ❤️ by <a href="https://twitter.com/andrealbiac" target="_blank">@andrealbiac</a>, <a href="https://twitter.com/jistro" target="_blank">@jistro</a> and <a href="https://twitter.com/ariutokintumi" target="_blank">@ariutokintumi</a>
-          </p>
-        </div>
-      </div>
       )}
       <header>
         <img src="/pink-logo.png" alt="RainbowKit Logo" height={100} width={100} />
@@ -280,13 +280,13 @@ const Home: NextPage = () => {
               backgroundColor={'gray.600'}
               color={'white'}
             >
-              Main page
+              Create gm Fam!
             </MenuItem>
             <MenuItem onClick={() => window.location.href = '/mint'}>
-              Mint
+              Wrap & Mint NFT
             </MenuItem>
             <MenuItem onClick={() => window.location.href = '/goBack'}>
-              Go back to the original collection
+              Go back to the Original Collection
             </MenuItem>
 
           </MenuList>
@@ -343,28 +343,30 @@ const Home: NextPage = () => {
                     paddingBottom: '20px',
                   }}
                 >
-                  Source of Collection Smart Contract Address
+                  Original Collection Smart Contract address
                   <Input size='sm' type="text" backgroundColor='gray.100' placeholder="To" id="getDeployerData__SourceAddress" />
                 </div>
-                <div
-                className={styles.unavailableBox}
-                onChange={(e) => {
-                  alert('This feature is in development');
-                  setValue('3');
-                }}
-                >
-                  Metadata (in development)
-                  <RadioGroup onChange={setValue} value={value} 
+                <div>
+                  Metadata 
+                  <RadioGroup onChange={setValue} value={value}
                   >
                     <Stack>
-                      <Radio value='1' backgroundColor='gray.100' colorScheme='green'>
+                      <Radio value='1' backgroundColor='gray.100' colorScheme='green' defaultChecked>
                         Use the original one
                       </Radio>
-                      <Radio value='2' backgroundColor='gray.100' colorScheme='green'>
-                        PIN on our IPFS node
-                      </Radio>
+                      <div className={styles.unavailableBox}>
+                        <Radio value='2' backgroundColor='gray.100' colorScheme='green' isDisabled>
+                          PIN on our IPFS node
+                        </Radio>
+                        <div className={styles.unavailableBox__overlay}>
+                          <h1>
+                            This feature is in development
+                          </h1>
+                        </div>
+                      </div>
                     </Stack>
                   </RadioGroup>
+
                 </div>
                 <div className={styles.container__twoSideByside}>
                   <div className={styles.container__a}>
@@ -373,7 +375,7 @@ const Home: NextPage = () => {
                       <Input size='sm' type="text" placeholder="" backgroundColor='gray.100' id="getDeployerData__CollectionName" />
                     </div>
                     <div>
-                      <p>Max Tokens </p>
+                      <p>Max Tokens (NFTs)</p>
                       <p style={{ fontSize: '12px', color: 'gray' }}>
                         (this can cut the comunity size)
                       </p>
@@ -396,26 +398,29 @@ const Home: NextPage = () => {
                     </div>
                     <div
                       className={styles.unavailableBox}
-                      onChange={(e) => {
-                        alert('This feature is in development');
-                        setValue('3');
-                      }}
                     >
-                      Whitelist (In development)
+                      Whitelist
                       <Stack spacing={0}>
                         <Checkbox
                           colorScheme='green'
                           id=''
+                          disabled
                         >
                           By original token ID (Number)
                         </Checkbox>
                         <Checkbox
                           colorScheme='green'
                           id=''
+                          disabled
                         >
                           By wallet address
                         </Checkbox>
                       </Stack>
+                      <div className={styles.unavailableBox__overlay}>
+                        <h1>
+                          This feature is in development
+                        </h1>
+                      </div>
                     </div>
                     <div>
                       Cost per mint
@@ -429,7 +434,7 @@ const Home: NextPage = () => {
                   </div>
                 </div>
                 <div>
-                  New Collection Owner (User address or SAFE address)
+                  New Collection Owner (Guardian address or SAFE Smart Contract address)
                   <Input size='sm' type="text" placeholder="0x..." backgroundColor='gray.100' id="getDeployerData__CollectionOwner" />
                 </div>
                 <div

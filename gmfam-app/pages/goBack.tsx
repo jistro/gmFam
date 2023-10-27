@@ -48,10 +48,10 @@ const Home: NextPage = () => {
             alert('Please fren fill all the inputs');
             return;
         }
-        
+
         var srcAddress = inputs[0];
         var tokenId = inputs[1];
-        
+
 
         prepareWriteContract({
             address: srcAddress as '0x${string}',
@@ -75,10 +75,10 @@ const Home: NextPage = () => {
     return (
         <div className={styles.container}>
             <Head>
-                <title>gm Fam! -- Go back</title>
+                <title>Go back to the Original Collection</title>
                 <meta
-                    content="gm Fam! -- go back to the original collection"
-                    name="gm Fam!-- go back to the original collection"
+                    content="Go back to the Original Collection"
+                    name="Go back to the Original Collection"
                 />
                 <link href="/favicon.png" rel="icon" />
             </Head>
@@ -119,19 +119,19 @@ const Home: NextPage = () => {
                         icon={<FaBars />}
                         colorScheme='green'
                     />
-
+                    
                     <MenuList >
                         <MenuItem onClick={() => window.location.href = '/'}>
-                            Main page
+                            Create gm Fam!
                         </MenuItem>
                         <MenuItem onClick={() => window.location.href = '/mint'}>
-                            Mint
+                            Wrap & Mint NFT
                         </MenuItem>
                         <MenuItem
                             backgroundColor={'gray.600'}
                             color={'white'}
                         >
-                            Go back to the original collection
+                            Go back to the Original Collection
                         </MenuItem>
 
 
@@ -163,11 +163,11 @@ const Home: NextPage = () => {
                                 </h1>
                             </div>
                             <div>
-                                gm Fam! Deployed Smart Contract
+                                gm Fam! Deployed Smart Contract address (New one)
                                 <Input size='sm' type="text" backgroundColor='gray.100' placeholder="0x..." id="SourceAddress" />
                             </div>
                             <div>
-                                ID
+                                Token ID (NFT)
                                 <Input size='sm' type="number" placeholder="0" backgroundColor='gray.100' id="bye_id" />
                             </div>
                             <div
