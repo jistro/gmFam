@@ -2,6 +2,9 @@
 
 As seen in [ETHOnline 2023 Async hackathon](https://ethglobal.com/showcase/gm-fam-ayigu)
 
+**This is an alpha version of the gm Fam! dApp.
+If you want to use the last and up-to-date stable version please go to: [gm-fam.vercel.app](https://gm-fam.vercel.app/)**
+
 Migrate your NFT community from the original one accompanied by your Frens, wrapping the NFTs into a new diverged Smart Contract. Because with "gm Fam!", we believe that the best communities are the ones we choose to build together!
 
 ## Project Description
